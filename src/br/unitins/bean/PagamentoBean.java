@@ -29,6 +29,8 @@ public class PagamentoBean implements Serializable {
 	
 	private Integer idTipoPagamento;
 	
+	private Integer idPagamento;
+	
 	private List<TipoPagamento> listaTipoPagamento;
 	
 	public List<TipoPagamento> getListaTipoPagamento() {
@@ -55,7 +57,8 @@ public class PagamentoBean implements Serializable {
 	}
 
 	public String alterar() {
-		pagamentoEJB.update(pagamento, idTipoPagamento);
+		getPagamento().getTipoPagamento().setId(idTipoPagamento);
+		pagamentoEJB.update(pagamento);
 		listaPagamento = pagamentoEJB.findAll();
 		return null;
 	}
@@ -119,5 +122,15 @@ public class PagamentoBean implements Serializable {
 	public void setIdTipoPagamento(Integer idTipoPagamento) {
 		this.idTipoPagamento = idTipoPagamento;
 	}
+
+	public Integer getIdPagamento() {
+		return idPagamento;
+	}
+
+	public void setIdPagamento(Integer idPagamento) {
+		this.idPagamento = idPagamento;
+	}
+	
+	
 
 }

@@ -49,62 +49,47 @@ public class PedidoBean implements Serializable{
 
 	private List<Integer> idProduto = new ArrayList<>();
 
-	private List<Produto> produtos;
+	private List<Produto> listaProduto;
 
-	private List<Pedido> pedidos;
+	private List<Pedido> listaPedido;
 
-	private List<Cliente> clientes;
+	private List<Cliente> listaCliente;
 
-	private List<Pagamento> pagamentos;
+	private List<Pagamento> listaPagamento;
 
 	@PostConstruct
 	public void init() {
-		pedidos = pedidoEJB.findAll();
-		setPagamentos(pagamentoEJB.findAll());
-		setClientes(clienteEJB.findAll());
-		setProdutos(produtoEJB.findAll());
+		listaPedido = pedidoEJB.findAll();
+		setListaPagamento(pagamentoEJB.findAll());
+		setListaCliente(clienteEJB.findAll());
+		setListaProduto(produtoEJB.findAll());
 	}
 
-	public String insert() {
+	public String inserir() {
 		pedidoEJB.insert(pedido, idCliente, idPagamento, idProduto);
-		pedidoEJB.insert(pedido, idCliente, idPagamento, idProduto);
-		limpar();
-		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
 
-	public String update() {
-		pedido.setId(getIdPesquisa());
+	public String alterar() {
 		pedidoEJB.update(pedido);
-		limpar();
-		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
 
-	public String delete() {
+	public String apagar() {
 		pedidoEJB.delete(pedidoEJB.load(idPesquisa));
-		limpar();
-		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
 
-	public String pesquisar() {
+	public String buscaId() {
 		pedido = pedidoEJB.load(idPesquisa);
 		return null;
 	}
 
-	public String limpar() {
+	public String novo() {
 		pedido = new Pedido();
 		return null;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
 
 	public Pedido getPedido() {
 
@@ -123,28 +108,12 @@ public class PedidoBean implements Serializable{
 		this.idPesquisa = idPesquisa;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
 	public Integer getIdCliente() {
 		return idCliente;
 	}
 
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
 	}
 
 	public Integer getIdPagamento() {
@@ -155,20 +124,44 @@ public class PedidoBean implements Serializable{
 		this.idPagamento = idPagamento;
 	}
 
-	public List<Pagamento> getPagamentos() {
-		return pagamentos;
-	}
-
-	public void setPagamentos(List<Pagamento> pagamentos) {
-		this.pagamentos = pagamentos;
-	}
-
 	public List<Integer> getIdProduto() {
 		return idProduto;
 	}
 
 	public void setIdProduto(List<Integer> idProduto) {
 		this.idProduto = idProduto;
+	}
+
+	public List<Produto> getListaProduto() {
+		return listaProduto;
+	}
+
+	public void setListaProduto(List<Produto> listaProduto) {
+		this.listaProduto = listaProduto;
+	}
+
+	public List<Pedido> getListaPedido() {
+		return listaPedido;
+	}
+
+	public void setListaPedido(List<Pedido> listaPedido) {
+		this.listaPedido = listaPedido;
+	}
+
+	public List<Cliente> getListaCliente() {
+		return listaCliente;
+	}
+
+	public void setListaCliente(List<Cliente> listaCliente) {
+		this.listaCliente = listaCliente;
+	}
+
+	public List<Pagamento> getListaPagamento() {
+		return listaPagamento;
+	}
+
+	public void setListaPagamento(List<Pagamento> listaPagamento) {
+		this.listaPagamento = listaPagamento;
 	}
 	
 

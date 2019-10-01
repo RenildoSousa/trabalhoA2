@@ -23,8 +23,10 @@
 				<p:commandButton value="Cadastro de Produto" action="produto" />
 			</p:menuitem>
 			<p:menuitem>
-				<p:commandButton value="Cadastro de Tipo de Pagamento"
-					action="tipoDePagamento" />
+			    <p:commandButton value="Cadastro de Tipo de Pagamento" action="tipoDePagamento" />
+			</p:menuitem>
+			<p:menuitem>
+				<p:commandButton value="Fazer pedido" action="pedido" />
 			</p:menuitem>
 
 		</p:menubar>
@@ -53,8 +55,8 @@
 	        Tipo de Pagamento:
 		    	<p:selectOneMenu value="#{pagamentoBean.idTipoPagamento}">
 					<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-					<f:selectItems value="#{tipoPagamentoBean.listaTipoPagamento}" var="t"
-						itemValue="#{t.id}" itemLabel="#{t.descricao}" />
+					<f:selectItems value="#{tipoPagamentoBean.listaTipoPagamento}"
+						var="t" itemValue="#{t.id}" itemLabel="#{t.descricao}" />
 				</p:selectOneMenu>
 
 			</p:panelGrid>

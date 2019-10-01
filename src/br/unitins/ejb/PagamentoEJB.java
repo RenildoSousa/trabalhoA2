@@ -20,7 +20,7 @@ public class PagamentoEJB {
 		pagamento.setTipoPagamento(em.find(TipoPagamento.class, idTipoPagamento));
 		em.persist(pagamento);
 	}
-	public void update(Pagamento pagamento, Integer idTipoPagamento) {
+	public void update(Pagamento pagamento) {
 		em.merge(pagamento);
 	}
 	public void delete(Pagamento pagamento) {
