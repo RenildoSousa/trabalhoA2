@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 
 @Entity
 public class Cliente implements Serializable{
@@ -15,6 +16,8 @@ public class Cliente implements Serializable{
 	private Integer id;
 	
 	private String nome;
+	
+	@Email
 	private String email;
 	
 	public Integer getId() {

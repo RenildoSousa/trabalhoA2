@@ -1,16 +1,35 @@
 package br.unitins.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.unitins.model.TipoPagamento;
 
 @Stateful
 public class TipoPagamentoEJB {
-	public void insert(TipoPagamento tipoPagamento) {}
-	public void update(TipoPagamento tipoPagamento) {}
-	public void delete(TipoPagamento tipoPagamento) {}
-	public TipoPagamento load(TipoPagamento tipoPagamento) {
-		return null;
+	
+	@PersistenceContext
+	private EntityManager em;
+	
+	public void insert(TipoPagamento tipoPagamento) {
+		em.persist(tipoPagamento);
+	}
+	public void update(TipoPagamento tipoPagamento) {
+		em.merge(tipoPagamento);
+	}
+	public void delete(TipoPagamento tipoPagamento) {
+		tipoPagamento = load(tipoPagamento.getId());
+		em.remove(tipoPagamento);
+	}
+	public TipoPagamento load(Integer id) {
+		return em.find(TipoPagamento.class, id);
+	}
+	
+	public List<TipoPagamento> findAll() {
+		return em.createQuery("select t from TipoPagamento t", TipoPagamento.class).getResultList();
 	}
 
 }

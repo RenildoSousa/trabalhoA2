@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form1">
+			<p:panel header="Pesquisa">
+				<p:panelGrid columns="3">
+		    		ID:
+		    		<p:inputText value="#{pedidoBean.idPesquisa}" />
+					<p:commandButton value="Pesquisar" action="#{pedidoBean.pesquisar}"
+						update="form1" />
+
+				</p:panelGrid>
+			</p:panel>
+			<br />
+			<p:panel header="Cadastro">
+				<p:panelGrid columns="2">
+	   
+		    		ID:
+		   			<p:outputLabel value="#{pedidoBean.pedido.id}" />
+		   			
+		   			VALOR TOTAL:
+		    		<p:outputLabel value="#{pedidoBean.pedido.valorTotal}" />
+	
+	        		DATA:
+		    		<p:inputText type="date" value="#{pedidoBean.pedido.data}"
+						pattern="yyyy-MM-dd">
+						<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+					</p:inputText>
+
+					CLIENTE:
+					<p:selectOneMenu value="#{pedidoBean.idCliente}">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{clienteBean.listaCliente}" var="c"
+							itemValue="#{c.id}" itemLabel="#{c.nome}" />
+					</p:selectOneMenu>
+					
+					PRODUTOS:
+					<h:selectManyCheckbox value="#{pedidoBean.idProduto}">
+						<f:selectItems value="#{produtoBean.listaProduto}" var="p"
+							itemValue="#{p.id}" itemLabel="#{p.nome}" />
+					</h:selectManyCheckbox>
+					
+					PAGAMENTO:
+					<p:selectOneMenu value="#{pedidoBean.idPagamento}">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{pagamentoBean.listaPagamento}" var="pg"
+							itemValue="#{pg.id}" itemLabel="#{pg.id}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<br />
+				<p:commandButton value="Incluir" action="#{pedidoBean.insert}"
+					update="form1,data1" />
+
+				<p:commandButton value="Alterar" action="#{pedidoBean.update}"
+					update="form1,data1" />
+
+				<p:commandButton value="Deletar" action="#{pedidoBean.delete}"
+					update="form1,data1" />
+
+				<p:commandButton value="Limpar" action="#{pedidoBean.limpar}"
+					update="form1" />
+
+				<p:messages />
+			</p:panel>
+		</h:form>
+
+		<br />
+
+		<p:dataTable id="data1" var="pe" value="#{pedidoBean.pedidos}">
+			<f:facet name="header">
+            PEDIDOS
+            </f:facet>
+			<p:column headerText="ID">
+				<h:outputText value="#{pe.id}" />
+			</p:column>
+
+			<p:column headerText="VALOR TOTAL">
+				<h:outputText value="#{pe.valorTotal}" />
+			</p:column>
+
+			<p:column headerText="DATA">
+				<h:outputText value="#{pe.data}">
+					<f:convertDateTime type="localDate" pattern="dd-MM-yyyy" />
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="CLIENTE">
+				<h:outputText value="#{pe.cliente.nome}" />
+			</p:column>
+
+			<p:column headerText="DATA DO PAGAMENTO">
+				<h:outputText value="#{pe.pagamento.data}" />
+			</p:column>
+
+			<p:column headerText="PRODUTOS">
+				<h:selectOneMenu value="#{pe.produto}">
+					<f:selectItems value="#{pe.produto}" var="p"
+						itemLabel="#{p.nome}" />
+				</h:selectOneMenu>
+			</p:column>
+
+		</p:dataTable>
+</html>

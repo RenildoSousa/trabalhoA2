@@ -1,76 +1,150 @@
 package br.unitins.bean;
 
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.annotation.RequestMap;
+
+import javax.enterprise.context.SessionScoped;
+
 import javax.inject.Named;
 
+import com.sun.faces.util.Util;
+
+import br.unitins.ejb.ClienteEJB;
+import br.unitins.ejb.PagamentoEJB;
 import br.unitins.ejb.PedidoEJB;
+import br.unitins.ejb.ProdutoEJB;
 import br.unitins.model.Cliente;
+import br.unitins.model.Pagamento;
 import br.unitins.model.Pedido;
+import br.unitins.model.Produto;
 
 @Named
-@RequestScoped
-public class PedidoBean {
+@SessionScoped
+public class PedidoBean implements Serializable{
 	
 	@EJB
 	private PedidoEJB pedidoEJB;
-	
+
+	@EJB
+	private ClienteEJB clienteEJB;
+
+	@EJB
+	private PagamentoEJB pagamentoEJB;
+
+	@EJB
+	private ProdutoEJB produtoEJB;
+
 	private Pedido pedido;
-	
-	private Integer idClinte;
-	private Integer idProduto;
+
+	private Integer idPesquisa;
+
+	private Integer idCliente;
+
 	private Integer idPagamento;
-	
-	public String inserir() {
-		pedidoEJB.insert(pedido);
+
+	private List<Integer> idProduto = new ArrayList<>();
+
+	private List<Produto> produtos;
+
+	private List<Pedido> pedidos;
+
+	private List<Cliente> clientes;
+
+	private List<Pagamento> pagamentos;
+
+	@PostConstruct
+	public void init() {
+		pedidos = pedidoEJB.findAll();
+		setPagamentos(pagamentoEJB.findAll());
+		setClientes(clienteEJB.findAll());
+		setProdutos(produtoEJB.findAll());
+	}
+
+	public String insert() {
+		pedidoEJB.insert(pedido, idCliente, idPagamento, idProduto);
+		pedidoEJB.insert(pedido, idCliente, idPagamento, idProduto);
+		limpar();
+		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
-	
-	public String alterar() {
-		pedidoEJB.upadate(pedido);
+
+	public String update() {
+		pedido.setId(getIdPesquisa());
+		pedidoEJB.update(pedido);
+		limpar();
+		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
-	public String apagar() {
-		pedidoEJB.delete(pedido);
+
+	public String delete() {
+		pedidoEJB.delete(pedidoEJB.load(idPesquisa));
+		limpar();
+		br.unitins.bean.Util.redirect("pedido.xhtml");
 		return null;
 	}
-	
-	public String novo() {
+
+	public String pesquisar() {
+		pedido = pedidoEJB.load(idPesquisa);
+		return null;
+	}
+
+	public String limpar() {
 		pedido = new Pedido();
 		return null;
 	}
 
-	public PedidoEJB getPedidoEJB() {
-		return pedidoEJB;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
-	public void setPedidoEJB(PedidoEJB pedidoEJB) {
-		this.pedidoEJB = pedidoEJB;
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public Pedido getPedido() {
+
+		if (pedido == null) {
+			pedido = new Pedido();
+		}
+
 		return pedido;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public Integer getIdPesquisa() {
+		return idPesquisa;
 	}
 
-	public Integer getIdClinte() {
-		return idClinte;
+	public void setIdPesquisa(Integer idPesquisa) {
+		this.idPesquisa = idPesquisa;
 	}
 
-	public void setIdClinte(Integer idClinte) {
-		this.idClinte = idClinte;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public Integer getIdProduto() {
-		return idProduto;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
-	public void setIdProduto(Integer idProduto) {
-		this.idProduto = idProduto;
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	public Integer getIdPagamento() {
@@ -80,7 +154,22 @@ public class PedidoBean {
 	public void setIdPagamento(Integer idPagamento) {
 		this.idPagamento = idPagamento;
 	}
-	
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+
+	public List<Integer> getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(List<Integer> idProduto) {
+		this.idProduto = idProduto;
+	}
 	
 
 }

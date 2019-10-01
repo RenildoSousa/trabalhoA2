@@ -7,8 +7,5 @@
 		<class>br.unitins.model.Pedido</class>
 		<class>br.unitins.model.Produto</class>
 		<class>br.unitins.model.TipoPagamento</class>
-		<properties>
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-		</properties>
 	</persistence-unit>
 </persistence>

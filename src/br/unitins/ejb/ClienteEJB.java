@@ -31,7 +31,7 @@ public class ClienteEJB {
 		return em.find(Cliente.class, id);
 	}
 	 public List<Cliente> findAll(){
-		 return em.createQuery("select c from cliente c", Cliente.class).getResultList();
+		 return em.createQuery("select c from Cliente c", Cliente.class).getResultList();
 	 }
 
 }

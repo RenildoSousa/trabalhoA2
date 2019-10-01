@@ -7,10 +7,10 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Produto Crud</title>
+	<title>Cliente Crud</title>
 </h:head>
 <h:body>
-	<h1>CRUD - Produto</h1>
+	<h1>CRUD - Cliente</h1>
 
 
 	<h:form id="form1">
@@ -30,38 +30,38 @@
 		<p:panel header="Consultar">
 			<p:panelGrid columns="3">
 		    Codigo:
-		    <p:inputText value="#{produtoBean.idPesquisar}" />
-				<p:commandButton value="Pesquisar" action="#{produtoBean.buscaId()}"
+		    <p:inputText value="#{clienteBean.idPesquisar}" />
+				<p:commandButton value="Pesquisar" action="#{clienteBean.buscaId()}"
 					update="form1" />
 
 			</p:panelGrid>
 		</p:panel>
 		<br />
-		<p:panel header="Dados do Produto">
+		<p:panel header="Dados do Cliente">
 			<p:panelGrid columns="2">
 	   
 		    Codigo:
-		    <p:outputLabel value="#{produtoBean.produto.id}" />
+		    <p:outputLabel value="#{clienteBean.cliente.id}" />
 	
 	        Nome:
-		    <p:inputText value="#{produtoBean.produto.nome}" />
+		    <p:inputText value="#{clienteBean.cliente.nome}" />
 
-	        Valor:
-		    <p:inputText value="#{produtoBean.produto.valor}" />
+	        Email:
+		    <p:inputText value="#{clienteBean.cliente.email}" />
 
 			</p:panelGrid>
 
 			<br />
-			<p:commandButton value="Cadastrar" action="#{produtoBean.inserir()}"
+			<p:commandButton value="Cadastrar" action="#{clienteBean.inserir()}"
 				update="form1,data1"/>
 
-			<p:commandButton value="Alterar" action="#{produtoBean.alterar()}"
+			<p:commandButton value="Alterar" action="#{clienteBean.alterar()}"
 				update="form1,data1"/>
 
-			<p:commandButton value="Apagar" action="#{produtoBean.apagar()}"
+			<p:commandButton value="Apagar" action="#{clienteBean.apagar()}"
 				update="form1,data1" />
 
-			<p:commandButton value="Novo" action="#{produtoBean.novo()}"
+			<p:commandButton value="Novo" action="#{clienteBean.novo()}"
 				update="form1" />
 
 			<p:messages />
@@ -70,19 +70,19 @@
 
 	<br />
 	
-	<p:panel id="panel1" header="Listar Todos Produtos">
+	<p:panel id="panel1" header="Listar Todos Clientes">
 
-		<p:dataTable id="data1" var="p" value="#{produtoBean.listaProduto}">
+		<p:dataTable id="data1" var="c" value="#{clienteBean.listaCliente}">
 			<p:column headerText="Código">
-				<h:outputText value="#{p.id}" />
+				<h:outputText value="#{c.id}" />
 			</p:column>
 
 			<p:column headerText="Nome">
-				<h:outputText value="#{p.nome}" />
+				<h:outputText value="#{c.nome}" />
 			</p:column>
 			
-			<p:column headerText="Valor">
-				<h:outputText value="#{p.valor}" />
+			<p:column headerText="Email">
+				<h:outputText value="#{c.email}" />
 			</p:column>
 		</p:dataTable>
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Pagamento Crud</title>
+</h:head>
+<h:body>
+	<h1>CRUD - Pagamento</h1>
+
+
+	<h:form id="form1">
+		<p:menubar>
+
+			<p:menuitem>
+				<p:commandButton value="Cadastro de Cliente" action="cliente" />
+			</p:menuitem>
+			<p:menuitem>
+				<p:commandButton value="Cadastro de Produto" action="produto" />
+			</p:menuitem>
+			<p:menuitem>
+				<p:commandButton value="Cadastro de Tipo de Pagamento"
+					action="tipoDePagamento" />
+			</p:menuitem>
+
+		</p:menubar>
+		<p:panel header="Consultar">
+			<p:panelGrid columns="3">
+		    Codigo:
+		    <p:inputText value="#{pagamentoBean.idPesquisar}" />
+				<p:commandButton value="Pesquisar"
+					action="#{pagamentoBean.buscaId()}" update="form1" />
+
+			</p:panelGrid>
+		</p:panel>
+		<br />
+		<p:panel header="Dados do Pagamento">
+			<p:panelGrid columns="2">
+	   
+		    Codigo:
+		    <p:outputLabel value="#{pagamentoBean.pagamento.id}" />
+	
+	        Date:
+		    <p:inputText type="date" value="#{pagamentoBean.pagamento.data}"
+					pattern="yyyy-MM-dd">
+					<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+				</p:inputText>
+
+	        Tipo de Pagamento:
+		    	<p:selectOneMenu value="#{pagamentoBean.idTipoPagamento}">
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+					<f:selectItems value="#{tipoPagamentoBean.listaTipoPagamento}" var="t"
+						itemValue="#{t.id}" itemLabel="#{t.descricao}" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+
+			<br />
+			<p:commandButton value="Cadastrar"
+				action="#{pagamentoBean.inserir()}" update="form1,data1" />
+
+			<p:commandButton value="Alterar" action="#{pagamentoBean.alterar()}"
+				update="form1,data1" />
+
+			<p:commandButton value="Apagar" action="#{pagamentoBean.apagar()}"
+				update="form1,data1" />
+
+			<p:commandButton value="Novo" action="#{pagamentoBean.novo()}"
+				update="form1" />
+
+			<p:messages />
+		</p:panel>
+	</h:form>
+
+	<br />
+
+	<p:panel id="panel1" header="Listar Todos Pagamentos">
+
+		<p:dataTable id="data1" var="p"
+			value="#{pagamentoBean.listaPagamento}">
+			<p:column headerText="Código">
+				<h:outputText value="#{p.id}" />
+			</p:column>
+
+			<p:column headerText="Data">
+				<h:outputText value="#{p.data}" />
+			</p:column>
+
+			<p:column headerText="Tipo pagamento">
+				<h:outputText value="#{p.tipoPagamento.descricao}" />
+			</p:column>
+		</p:dataTable>
+
+	</p:panel>
+
+
+</h:body>
+</html>
